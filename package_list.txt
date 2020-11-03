@@ -36,6 +36,7 @@ rofi
 sed
 sudo
 texinfo
+ttf-liberation
 vim
 which
 xf86-video-nouveau
