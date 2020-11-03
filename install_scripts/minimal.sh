@@ -25,8 +25,8 @@ mkfs.fat -F32 /dev/${device}1
 mkfs.ext4 /dev/${device}2
 
 mount /dev/${device}2 /mnt
-mkdir /mnt/efi
-mount /dev/${device}1 /mnt/efi
+mkdir -p /mnt/boot/efi
+mount /dev/${device}1 /mnt/boot/efi
 
 # Install essential packages
 pacstrap /mnt base base-devel linux linux-firmware man vim networkmanager git
@@ -60,7 +60,7 @@ arch-chroot /mnt sh -c "
 
 	# Install and configure GRUB
 	pacman -S grub efibootmgr
-	grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=GRUB
+	grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
 	grub-mkconfig -o /boot/grub/grub.cfg
 "
 
