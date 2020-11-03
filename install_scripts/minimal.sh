@@ -24,9 +24,8 @@ parted -s /dev/${device} mklabel gpt mkpart EFI fat32 1MiB 261MiB set 1 esp on m
 mkfs.fat -F32 /dev/${device}1
 mkfs.ext4 /dev/${device}2
 
-mkdir /mnt/boot
-mkdir /mnt/boot/efi
-mount /dev/${device}1 /mnt/boot/efi
+mkdir /mnt/efi
+mount /dev/${device}1 /mnt/efi
 mount /dev/${device}2 /mnt
 
 # Install essential packages
@@ -61,7 +60,7 @@ arch-chroot /mnt sh -c "
 
 	# Install and configure GRUB
 	pacman -S grub efibootmgr
-	grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
+	grub-install --target=x86_64-efi --efi-directory=efi --bootloader-id=GRUB
 	grub-mkconfig -o /boot/grub/grub.cfg
 "
 
