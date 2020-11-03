@@ -65,4 +65,4 @@ arch-chroot /mnt sh -c "
 	grub-mkconfig -o /boot/grub/grub.cfg
 "
 
-printf "Finished installation. Remove installation media and reboot."
+printf "Finished installation. Remove installation media and reboot.\n"
