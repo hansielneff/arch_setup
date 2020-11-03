@@ -24,9 +24,9 @@ parted -s /dev/${device} mklabel gpt mkpart EFI fat32 1MiB 261MiB set 1 esp on m
 mkfs.fat -F32 /dev/${device}1
 mkfs.ext4 /dev/${device}2
 
+mount /dev/${device}2 /mnt
 mkdir /mnt/efi
 mount /dev/${device}1 /mnt/efi
-mount /dev/${device}2 /mnt
 
 # Install essential packages
 pacstrap /mnt base base-devel linux linux-firmware vim networkmanager git
