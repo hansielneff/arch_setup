@@ -4,7 +4,7 @@
 # 
 # Pre-requisites:
 # 	- UEFI boot mode
-# 	- A working internet connection.
+# 	- A working internet connection
 
 printf "Congratulations on making the right choice. (I use Arch btw)\n"
 
@@ -29,7 +29,7 @@ mkdir /mnt/efi
 mount /dev/${device}1 /mnt/efi
 
 # Install essential packages
-pacstrap /mnt base base-devel linux linux-firmware vim networkmanager git
+pacstrap /mnt base base-devel linux linux-firmware man vim networkmanager git
 
 # Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
