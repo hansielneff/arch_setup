@@ -33,7 +33,7 @@ mount /dev/${device}2 /mnt
 pacstrap /mnt base base-devel linux linux-firmware vim networkmanager git
 
 # Generate an fstab file
-genfstab -L /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Change root into the new system
 arch-chroot /mnt sh -c "
@@ -44,11 +44,11 @@ arch-chroot /mnt sh -c "
 	# Uncomment en_US.UTF-8 localization and generate
 	sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 	locale-gen
-	printf 'LANG=en_US.UTF-8\n' > /etc/locale.conf
-	printf 'KEYMAP=dk\n' > /etc/vconsole.conf
+	printf 'LANG=en_US.UTF-8' > /etc/locale.conf
+	printf 'KEYMAP=dk' > /etc/vconsole.conf
 
 	# Network configuration
-	printf '${hostname}\n' > /etc/hostname
+	printf '${hostname}' > /etc/hostname
 	printf '\n127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t${hostname}.localdomain\t${hostname}\n' >> /etc/hosts
 	systemctl enable --now NetworkManager
 
