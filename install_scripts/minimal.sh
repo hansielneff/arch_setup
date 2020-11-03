@@ -36,33 +36,33 @@ pacstrap /mnt base base-devel linux linux-firmware vim networkmanager git
 genfstab -L /mnt >> /mnt/etc/fstab
 
 # Change root into the new system
-arch-chroot /mnt
+arch-chroot /mnt sh -c "
+	# Permanently set the system time
+	ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
+	hwclock --systohc
 
-# Permanently set the system time
-ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
-hwclock --systohc
+	# Uncomment en_US.UTF-8 localization and generate
+	sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+	locale-gen
+	printf 'LANG=en_US.UTF-8\n' > /etc/locale.conf
+	printf 'KEYMAP=dk\n' > /etc/vconsole.conf
 
-# Uncomment en_US.UTF-8 localization and generate
-sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
-locale-gen
-printf "LANG=en_US.UTF-8\n" > /etc/locale.conf
-printf "KEYMAP=dk\n" > /etc/vconsole.conf
+	# Network configuration
+	printf '${hostname}\n' > /etc/hostname
+	printf '\n127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t${hostname}.localdomain\t${hostname}\n' >> /etc/hosts
+	systemctl enable --now NetworkManager
 
-# Network configuration
-printf "${hostname}\n" > /etc/hostname
-printf "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t${hostname}.localdomain\t${hostname}\n"
-systemctl enable --now NetworkManager
+	# Set root password
+	printf 'Root password\n'
+	passwd
 
-# Set root password
-printf "Root password\n"
-passwd
+	# Install Intel microcode
+	pacman -S intel-ucode
 
-# Install Intel microcode
-pacman -S intel-ucode
+	# Install and configure GRUB
+	pacman -S grub efibootmgr
+	grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
+	grub-mkconfig -o /boot/grub/grub.cfg
+"
 
-# Install and configure GRUB
-pacman -S grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-exit
-
+printf "Finished installation. Remove installation media and reboot."
