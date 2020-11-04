@@ -4,6 +4,8 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	exec startx
+# Start Sway when logging in from tty1
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+	XKB_DEFAULT_LAYOUT=dk exec sway
 fi
+
