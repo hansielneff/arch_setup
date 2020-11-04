@@ -33,6 +33,8 @@ pacman
 patch
 picom
 pkgconf
+pulseaudio
+pulseaudio-alsa
 ranger
 rofi
 sed
