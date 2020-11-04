@@ -41,7 +41,6 @@ texinfo
 ttf-liberation
 vim
 which
-xf86-video-nouveau
 xf86-video-vesa
 xorg-bdftopcf
 xorg-docs
