@@ -8,6 +8,7 @@ efibootmgr
 fakeroot
 file
 findutils
+firefox
 flex
 gawk
 gcc
@@ -32,6 +33,7 @@ pacman
 patch
 picom
 pkgconf
+ranger
 rofi
 sed
 sudo
