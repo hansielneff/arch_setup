@@ -19,7 +19,6 @@ groff
 grub
 gzip
 intel-ucode
-kitty
 libtool
 linux
 linux-firmware
@@ -36,11 +35,12 @@ polybar
 pulseaudio
 pulseaudio-alsa
 ranger
-rofi
 sed
 sudo
 sway
+termite
 texinfo
 ttf-liberation
 vim
 which
+wofi
