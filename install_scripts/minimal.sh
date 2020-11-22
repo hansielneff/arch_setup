@@ -29,7 +29,7 @@ mkdir -p /mnt/boot/efi
 mount /dev/${device}1 /mnt/boot/efi
 
 # Install essential packages
-pacstrap /mnt base base-devel linux linux-firmware man vim networkmanager git
+pacstrap /mnt base linux linux-firmware man-db man-pages networkmanager neovim git
 
 # Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -40,7 +40,7 @@ arch-chroot /mnt sh -c "
 	ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
 	hwclock --systohc
 
-	# Uncomment en_US.UTF-8 localization and generate
+	# Uncomment en_US.UTF-8 localization, generate and configure env variables
 	sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 	locale-gen
 	printf 'LANG=en_US.UTF-8' > /etc/locale.conf
@@ -49,7 +49,7 @@ arch-chroot /mnt sh -c "
 	# Network configuration
 	printf '${hostname}' > /etc/hostname
 	printf '\n127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t${hostname}.localdomain\t${hostname}\n' >> /etc/hosts
-	systemctl enable --now NetworkManager
+	systemctl enable NetworkManager
 
 	# Set root password
 	printf 'Root password\n'
@@ -64,4 +64,5 @@ arch-chroot /mnt sh -c "
 	grub-mkconfig -o /boot/grub/grub.cfg
 "
 
+umount -R /mnt
 printf "Finished installation. Remove installation media and reboot.\n"
