@@ -1,2 +1,2 @@
 # arch_setup
-My personal install scripts, package lists and dotfiles.
+My personal dotfiles, install scripts and package list.

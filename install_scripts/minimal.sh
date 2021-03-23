@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # This script sets up a minimal Arch Linux installation with GRUB.
 # Some parts will probably need to be modified in order to fit your needs.
 # 
@@ -8,25 +8,21 @@
 
 printf "Congratulations on making the right choice. (I use Arch btw)\n"
 
-printf "Enter desired hostname: "
-read hostname
-
-printf "$(lsblk)\n\nEnter name of the device you wish to install Arch onto: "
-read device
+hostname="hostname"
+install_disk="/dev/sda"
+dualboot=0
+timezone="Europe/Copenhagen"
+keymap="dk"
 
 # Update the system clock
 timedatectl set-ntp true
-timedatectl set-timezone Europe/Copenhagen
+timedatectl set-timezone "$timezone"
 
 # Partition, format and mount
-parted -s /dev/${device} mklabel gpt mkpart EFI fat32 1MiB 261MiB set 1 esp on mkpart Home ext4 261MiB 100%
-
-mkfs.fat -F32 /dev/${device}1
-mkfs.ext4 /dev/${device}2
-
-mount /dev/${device}2 /mnt
-mkdir -p /mnt/boot/efi
-mount /dev/${device}1 /mnt/boot/efi
+printf "Partition, format and mount the disk ($install_disk) however you want.
+Mount the EFI partition at /mnt/boot/efi.
+When you're done, press CTRL-D or type 'exit' to proceed."
+/bin/sh
 
 # Install essential packages
 pacstrap /mnt base linux linux-firmware man-db man-pages networkmanager neovim git
@@ -37,14 +33,14 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # Change root into the new system
 arch-chroot /mnt sh -c "
 	# Permanently set the system time
-	ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
+	ln -sf /usr/share/zoneinfo/'${timezone}' /etc/localtime
 	hwclock --systohc
 
 	# Uncomment en_US.UTF-8 localization, generate and configure env variables
 	sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 	locale-gen
 	printf 'LANG=en_US.UTF-8' > /etc/locale.conf
-	printf 'KEYMAP=dk' > /etc/vconsole.conf
+	printf 'KEYMAP=${keymap}' > /etc/vconsole.conf
 
 	# Network configuration
 	printf '${hostname}' > /etc/hostname
@@ -52,14 +48,17 @@ arch-chroot /mnt sh -c "
 	systemctl enable NetworkManager
 
 	# Set root password
-	printf 'Root password\n'
+	printf 'Set root password\n'
 	passwd
 
-	# Install Intel microcode
-	pacman -S intel-ucode
+	# Install and configure GRUB (Including Intel microcode which GRUB auto-configures)
+	pacman -S grub efibootmgr intel-ucode
+	
+	$dualboot && {
+		pacman -S os-prober
+		printf 'Mount the main partition of the other OS, so GRUB can detect it.'
+	}
 
-	# Install and configure GRUB
-	pacman -S grub efibootmgr
 	grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
 	grub-mkconfig -o /boot/grub/grub.cfg
 "
