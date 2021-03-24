@@ -8,6 +8,9 @@ export READER="zathura"
 export FILE="vifm"
 
 # ~/ Clean-up:
-export ZDOTDIR="$HOME/.config/zsh"
 export LESSHISTFILE="-"
 
+# Start Xorg
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
