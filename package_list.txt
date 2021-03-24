@@ -33,6 +33,7 @@ python 3.9.2-1
 st 0.8.4-1
 sudo 1.9.6.p1-1
 texinfo 6.7-3
+vifm 0.11-1
 which 2.21-5
 xf86-video-vesa 2.5.0-1
 xorg-bdftopcf 1.1-2
@@ -78,3 +79,8 @@ xorg-xwayland 21.1.0-1
 xorg-xwd 1.0.7-2
 xorg-xwininfo 1.1.5-2
 xorg-xwud 1.0.5-2
+zathura 0.4.7-1
+zsh 5.8-1
+zsh-autosuggestions 0.6.4-1
+zsh-completions 0.32.0-1
+zsh-syntax-highlighting 0.7.1-1
