@@ -3,8 +3,11 @@ automake 1.16.3-1
 base 2-2
 binutils 2.36.1-2
 bison 3.7.3-1
+dmenu 5.0-1
+dwm 6.2-1
 efibootmgr 17-2
 fakeroot 1.25.3-2
+firefox 87.0-1
 flex 2.6.4-3
 gcc 10.2.0-6
 git 2.31.0-1
@@ -23,6 +26,7 @@ nvidia 460.67-2
 nvidia-utils 460.67-1
 patch 2.7.6-8
 pkgconf 1.7.3-1
+st 0.8.4-1
 sudo 1.9.6.p1-1
 texinfo 6.7-3
 which 2.21-5
