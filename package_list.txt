@@ -27,6 +27,8 @@ nvidia-utils 460.67-1
 patch 2.7.6-8
 picom 8.2-1
 pkgconf 1.7.3-1
+pulseaudio 14.2-2
+pulseaudio-alsa 1:1.2.2-2
 python 3.9.2-1
 st 0.8.4-1
 sudo 1.9.6.p1-1
