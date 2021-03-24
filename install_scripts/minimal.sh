@@ -6,11 +6,9 @@
 # 	- UEFI boot mode
 # 	- A working internet connection
 
-printf "Congratulations on making the right choice. (I use Arch btw)\n"
-
+# Make sure to configure these values!
 hostname="hostname"
-install_disk="/dev/sda"
-dualboot=0
+dualboot=false
 timezone="Europe/Copenhagen"
 keymap="dk"
 
@@ -19,13 +17,15 @@ timedatectl set-ntp true
 timedatectl set-timezone "$timezone"
 
 # Partition, format and mount
-printf "Partition, format and mount the disk ($install_disk) however you want.
+printf "Partition, format and mount the disk however you want.
 Mount the EFI partition at /mnt/boot/efi.
-When you're done, press CTRL-D or type 'exit' to proceed."
+When you're done, press CTRL-D or type 'exit' to proceed.\n"
 /bin/sh
+printf "Press Enter to continue."
+read
 
 # Install essential packages
-pacstrap /mnt base linux linux-firmware man-db man-pages networkmanager neovim git
+pacstrap /mnt base linux linux-firmware man-db man-pages sudo networkmanager neovim git
 
 # Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -54,10 +54,9 @@ arch-chroot /mnt sh -c "
 	# Install and configure GRUB (Including Intel microcode which GRUB auto-configures)
 	pacman -S grub efibootmgr intel-ucode
 	
-	$dualboot && {
+	if [ $dualboot = true ]; then
 		pacman -S os-prober
-		printf 'Mount the main partition of the other OS, so GRUB can detect it.'
-	}
+	fi
 
 	grub-install --target=x86_64-efi --efi-directory=boot/efi --bootloader-id=GRUB
 	grub-mkconfig -o /boot/grub/grub.cfg

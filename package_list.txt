@@ -1,0 +1,12 @@
+base 2-2
+efibootmgr 17-2
+git 2.31.0-1
+grub 2:2.04-10
+intel-ucode 20210216-1
+linux 5.11.8.arch1-1
+linux-firmware 20210315.3568f96-1
+man-db 2.9.4-1
+man-pages 5.11-1
+neovim 0.4.4-1
+networkmanager 1.30.2-1
+sudo 1.9.6.p1-1
