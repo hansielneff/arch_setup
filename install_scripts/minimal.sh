@@ -25,7 +25,7 @@ printf "Press Enter to continue."
 read
 
 # Install essential packages
-pacstrap /mnt base linux linux-firmware man-db man-pages sudo networkmanager neovim git
+pacstrap /mnt base base-devel linux linux-firmware man-db man-pages networkmanager neovim git
 
 # Generate an fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
