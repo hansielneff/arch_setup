@@ -4,6 +4,7 @@ automake 1.16.3-1
 base 2-2
 binutils 2.36.1-2
 bison 3.7.6-1
+chromium 90.0.4430.85-1
 dash 0.5.11.3-1
 discord 0.0.14-1
 dmenu 5.0-1
@@ -37,7 +38,6 @@ man-pages 5.11-1
 neovim 0.4.4-1
 nerd-fonts-hack 2.1.0-3
 networkmanager 1.30.4-1
-os-prober 1.78-1
 pacman 5.2.2-3
 paru 1.5.1-1
 patch 2.7.6-8
@@ -45,8 +45,10 @@ picom 8.2-1
 pkgconf 1.7.3-1
 pulseaudio 14.2-3
 pulseaudio-alsa 1:1.2.2-2
+python 3.9.3-1
 sed 4.8-1
 signal-desktop 5.0.0-1
+starship 0.51.0-2
 sudo 1.9.6.p1-1
 texinfo 6.7-3
 which 2.21-5

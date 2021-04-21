@@ -2,9 +2,9 @@
 
 # Default programs
 export EDITOR="nvim"
-export TERMINAL="st"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
-export READER="zathura"
+export READER="okular"
 export FILE="vifm"
 
 # ~/ Clean-up:
