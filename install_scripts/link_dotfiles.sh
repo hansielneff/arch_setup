@@ -6,6 +6,7 @@ dot_dir="$HOME/arch_setup/dotfiles"
 mkdir $HOME/.config
 ln -sf ${dot_dir}/xorg-xinit/xinitrc		~/.xinitrc
 ln -sf ${dot_dir}/xorg-xinit/xserverrc		~/.xserverrc
+mkdir $HOME/.config/i3
 ln -sf ${dot_dir}/i3/config			~/.config/i3/config
 mkdir $HOME/.config/i3status
 ln -sf ${dot_dir}/i3status/config		~/.config/i3status/config
